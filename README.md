@@ -12,10 +12,10 @@
   <img src="https://img.shields.io/badge/Tailwind-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="tailwind"/>
 </p>
 
+<hr>
 
-
+<p align="center">https://fenrir-security-frontend-design-cha-teal.vercel.app/</p>
 <h2 align="center"><a href="https://fenrir-security-frontend-design-cha-teal.vercel.app/"><strong>Want to see live preview »</strong></a></h2>
-https://fenrir-security-frontend-design-cha-teal.vercel.app/
 
 <h3>Credentials To sign in</h3>
 We can use any credentials. And it would work. For both Signup and Login. 
