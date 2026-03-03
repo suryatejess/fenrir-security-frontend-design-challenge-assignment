@@ -1,7 +1,15 @@
 import React, { useState } from 'react'
 
-const Sidebar = ({ activePage = 'dashboard' }) => {
+const Sidebar = ({ activePage = 'dashboard', onThemeToggle }) => {
   const [isOpen, setIsOpen] = useState(false)
+  const [isDarkMode, setIsDarkMode] = useState(false)
+
+  const handleThemeToggle = () => {
+    setIsDarkMode(!isDarkMode)
+    if (onThemeToggle) {
+      onThemeToggle(!isDarkMode)
+    }
+  }
 
   const mainNavItems = [
     {
@@ -153,6 +161,42 @@ const Sidebar = ({ activePage = 'dashboard' }) => {
             ))}
           </div>
         </nav>
+
+        {/* Theme Toggle */}
+        <div className="px-4 py-3 border-t border-gray-200">
+          <button
+            onClick={handleThemeToggle}
+            className="w-full flex items-center justify-between px-4 py-3 rounded-full hover:bg-gray-50 transition-colors duration-200"
+          >
+            <div className="flex items-center gap-3">
+              {isDarkMode ? (
+                <svg className="w-5 h-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+              ) : (
+                <svg className="w-5 h-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+              )}
+              <span className="text-sm font-medium text-gray-600">
+                {isDarkMode ? 'Dark Mode' : 'Light Mode'}
+              </span>
+            </div>
+            
+            {/* Toggle Switch */}
+            <div
+              className={`relative w-11 h-6 rounded-full transition-colors duration-200 ${
+                isDarkMode ? 'bg-teal-500' : 'bg-gray-300'
+              }`}
+            >
+              <div
+                className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-transform duration-200 ${
+                  isDarkMode ? 'translate-x-6' : 'translate-x-1'
+                }`}
+              />
+            </div>
+          </button>
+        </div>
 
         {/* User profile */}
         <div className="p-4 border-t border-gray-200">
