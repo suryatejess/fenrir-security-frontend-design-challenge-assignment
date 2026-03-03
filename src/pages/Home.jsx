@@ -1,13 +1,15 @@
 import React from 'react'
 import SignupLoginForm from '../components/SignupLoginForm'
+import wallpaper from '../assets/freepik_bg.jpg'
 
 const Home = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 relative overflow-hidden">
-      {/* Background gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-teal-900/20 via-transparent to-orange-900/30 pointer-events-none" />
-      <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-orange-500/20 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-1/3 w-80 h-80 bg-pink-500/20 rounded-full blur-3xl" />
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Background image */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${wallpaper})` }}
+      />
       
       {/* Logo */}
       <div className="absolute top-6 left-8 flex items-center gap-2">
