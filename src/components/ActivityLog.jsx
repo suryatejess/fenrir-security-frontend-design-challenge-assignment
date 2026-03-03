@@ -72,22 +72,22 @@ const ActivityLog = ({ logs = mockLogs }) => {
   const getTextStyle = (type) => {
     switch (type) {
       case 'url':
-        return 'text-teal-400 hover:underline cursor-pointer'
+        return 'text-teal-600 hover:underline cursor-pointer'
       case 'code':
-        return 'bg-gray-700 px-1.5 py-0.5 rounded text-gray-200 font-mono text-sm'
+        return 'bg-gray-200 px-1.5 py-0.5 rounded text-gray-800 font-mono text-sm'
       case 'header':
-        return 'text-orange-400 font-mono'
+        return 'bg-orange-100 text-orange-600 px-1.5 py-0.5 rounded font-mono'
       case 'highlight':
-        return 'text-teal-300'
+        return 'text-teal-600'
       case 'keyword':
-        return 'text-orange-400 font-semibold'
+        return 'text-red-500 font-semibold'
       default:
-        return 'text-gray-300'
+        return 'text-gray-700'
     }
   }
 
   return (
-    <div className="h-full overflow-y-auto p-4 font-mono text-sm leading-relaxed">
+    <div className="h-full overflow-y-auto p-4 font-mono text-sm leading-relaxed bg-white">
       {logs.map((log) => (
         <div key={log.id} className="mb-4">
           <span className="text-gray-500">[{log.timestamp}]</span>{' '}

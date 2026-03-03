@@ -37,7 +37,7 @@ const MetadataRow = ({
   ]
 
   return (
-    <div className="flex items-center justify-between py-4 px-6 bg-white border-b border-gray-100">
+    <div className="flex items-center justify-between py-4 px-6 bg-white">
       {metadata.map((item, index) => (
         <div key={index} className="flex flex-col">
           <span className="text-xs text-gray-400 uppercase tracking-wider mb-1">

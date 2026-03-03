@@ -83,7 +83,7 @@ const LiveScanConsole = ({
           </div>
 
           {/* Tab Content */}
-          <div className="flex-1 bg-gray-900 overflow-hidden">
+          <div className="flex-1 bg-white overflow-hidden">
             {activeTab === 'activity' ? (
               <ActivityLog />
             ) : (
