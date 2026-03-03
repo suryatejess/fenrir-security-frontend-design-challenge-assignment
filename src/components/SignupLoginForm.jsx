@@ -38,7 +38,7 @@ const SignupLoginForm = () => {
   }
 
   return (
-    <div className="bg-white rounded-3xl shadow-xl p-8 w-full max-w-md">
+    <div className="bg-white rounded-3xl shadow-xl p-8 w-[420px] min-h-[640px] flex flex-col">
         <h1 className="text-3xl font-bold text-center text-gray-900 mb-2">
           {isLogin ? 'Log in' : 'Sign up'}
         </h1>
@@ -54,119 +54,130 @@ const SignupLoginForm = () => {
           </button>
         </p>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {!isLogin && (
-            <>
-              <div>
-                <input
-                  type="text"
-                  name="firstName"
-                  placeholder="First name*"
-                  value={formData.firstName}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent text-gray-700 placeholder-gray-400"
-                />
-              </div>
-
-              <div>
-                <input
-                  type="text"
-                  name="lastName"
-                  placeholder="Last name*"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent text-gray-700 placeholder-gray-400"
-                />
-              </div>
-            </>
-          )}
-
-          <div>
-            <input
-              type="email"
-              name="email"
-              placeholder="Email address*"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent text-gray-700 placeholder-gray-400"
-            />
-          </div>
-
-          <div className="relative">
-            <input
-              type={showPassword ? 'text' : 'password'}
-              name="password"
-              placeholder={isLogin ? 'Password*' : 'Password (8+ characters)*'}
-              value={formData.password}
-              onChange={handleChange}
-              required
-              minLength={isLogin ? undefined : 8}
-              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent text-gray-700 placeholder-gray-400 pr-12"
-            />
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
-            >
-              {showPassword ? (
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-              ) : (
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
-                </svg>
-              )}
-            </button>
-          </div>
-
-          {isLogin ? (
-            <div className="flex items-center justify-between py-2">
-              <div className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  name="rememberMe"
-                  id="rememberMe"
-                  checked={formData.rememberMe}
-                  onChange={handleChange}
-                  className="w-4 h-4 text-teal-600 border-gray-300 rounded focus:ring-teal-500"
-                />
-                <label htmlFor="rememberMe" className="text-sm text-gray-600">
-                  Remember me
-                </label>
-              </div>
-              <a href="#" className="text-sm text-teal-600 hover:text-teal-700 underline">
-                Forgot password?
-              </a>
-            </div>
-          ) : (
-            <div className="flex items-start gap-3 py-2">
+        <form onSubmit={handleSubmit} className="flex-1 flex flex-col">
+          {/* Form fields container with fixed structure */}
+          <div className="space-y-4 flex-1">
+            {/* First name - hidden in login mode but takes space */}
+            <div className={isLogin ? 'invisible h-0 overflow-hidden' : ''}>
               <input
-                type="checkbox"
-                name="agreeToTerms"
-                id="agreeToTerms"
-                checked={formData.agreeToTerms}
+                type="text"
+                name="firstName"
+                placeholder="First name*"
+                value={formData.firstName}
                 onChange={handleChange}
-                className="mt-1 w-4 h-4 text-teal-600 border-gray-300 rounded focus:ring-teal-500"
+                required={!isLogin}
+                disabled={isLogin}
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent text-gray-700 placeholder-gray-400"
               />
-              <label htmlFor="agreeToTerms" className="text-sm text-gray-600">
-                I agree to Aps's{' '}
-                <a href="#" className="text-teal-600 hover:text-teal-700 underline">
-                  Terms & Conditions
-                </a>{' '}
-                and acknowledge the{' '}
-                <a href="#" className="text-teal-600 hover:text-teal-700 underline">
-                  Privacy Policy
-                </a>
-              </label>
             </div>
-          )}
 
-          {/* TODO: redirect to Dashboard page */}
+            {/* Last name - hidden in login mode but takes space */}
+            <div className={isLogin ? 'invisible h-0 overflow-hidden' : ''}>
+              <input
+                type="text"
+                name="lastName"
+                placeholder="Last name*"
+                value={formData.lastName}
+                onChange={handleChange}
+                required={!isLogin}
+                disabled={isLogin}
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent text-gray-700 placeholder-gray-400"
+              />
+            </div>
+
+            {/* Spacer for login mode to push content down */}
+            {isLogin && <div className="h-8" />}
+
+            {/* Email */}
+            <div>
+              <input
+                type="email"
+                name="email"
+                placeholder="Email address*"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent text-gray-700 placeholder-gray-400"
+              />
+            </div>
+
+            {/* Password */}
+            <div className="relative">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                name="password"
+                placeholder={isLogin ? 'Password*' : 'Password (8+ characters)*'}
+                value={formData.password}
+                onChange={handleChange}
+                required
+                minLength={isLogin ? undefined : 8}
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent text-gray-700 placeholder-gray-400 pr-12"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+              >
+                {showPassword ? (
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                ) : (
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
+                  </svg>
+                )}
+              </button>
+            </div>
+
+            {/* Checkbox row - same height for both modes */}
+            <div className="py-2 min-h-[52px]">
+              {isLogin ? (
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      name="rememberMe"
+                      id="rememberMe"
+                      checked={formData.rememberMe}
+                      onChange={handleChange}
+                      className="w-4 h-4 text-teal-600 border-gray-300 rounded focus:ring-teal-500"
+                    />
+                    <label htmlFor="rememberMe" className="text-sm text-gray-600">
+                      Remember me
+                    </label>
+                  </div>
+                  <a href="#" className="text-sm text-teal-600 hover:text-teal-700 underline">
+                    Forgot password?
+                  </a>
+                </div>
+              ) : (
+                <div className="flex items-start gap-3">
+                  <input
+                    type="checkbox"
+                    name="agreeToTerms"
+                    id="agreeToTerms"
+                    checked={formData.agreeToTerms}
+                    onChange={handleChange}
+                    className="mt-1 w-4 h-4 text-teal-600 border-gray-300 rounded focus:ring-teal-500"
+                  />
+                  <label htmlFor="agreeToTerms" className="text-sm text-gray-600">
+                    I agree to Aps's{' '}
+                    <a href="#" className="text-teal-600 hover:text-teal-700 underline">
+                      Terms & Conditions
+                    </a>{' '}
+                    and acknowledge the{' '}
+                    <a href="#" className="text-teal-600 hover:text-teal-700 underline">
+                      Privacy Policy
+                    </a>
+                  </label>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Submit button */}
           <button
             type="submit"
             className="w-full bg-teal-500 hover:bg-teal-600 text-white font-semibold py-3 px-4 rounded-full transition-colors duration-200 mt-4"
@@ -175,6 +186,7 @@ const SignupLoginForm = () => {
           </button>
         </form>
 
+        {/* Social login buttons */}
         <div className="flex gap-3 mt-6">
           <button className="flex-1 flex items-center justify-center gap-2 bg-black text-white py-3 px-4 rounded-full hover:bg-gray-800 transition-colors duration-200">
             <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
@@ -193,7 +205,7 @@ const SignupLoginForm = () => {
           
           <button className="flex-1 flex items-center justify-center gap-2 bg-blue-600 text-white py-3 px-4 rounded-full hover:bg-blue-700 transition-colors duration-200">
             <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z"/>
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
             </svg>
           </button>
         </div>

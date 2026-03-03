@@ -61,7 +61,7 @@ const LiveScanConsole = ({
       {/* Main Content */}
       <div className="flex h-[500px]">
         {/* Left Panel - Console */}
-        <div className="flex-1 flex flex-col border-r border-gray-200">
+        <div className="w-3/5 flex flex-col border-r border-gray-200">
           {/* Tabs */}
           <div className="flex border-b border-gray-200">
             {tabs.map((tab) => (
@@ -93,7 +93,7 @@ const LiveScanConsole = ({
         </div>
 
         {/* Right Panel - Finding Log */}
-        <div className="w-96 overflow-y-auto">
+        <div className="w-2/5 overflow-y-auto">
           <FindingLog />
         </div>
       </div>

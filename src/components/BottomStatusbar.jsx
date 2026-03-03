@@ -23,7 +23,7 @@ const BottomStatusbar = ({
   ]
 
   return (
-    <div className="bg-white border-t border-gray-200 px-6 py-3">
+    <div className="bg-gray-100 border-t border-gray-200 px-6 py-3">
       <div className="flex items-center justify-between">
         {/* Left side - Agent stats */}
         <div className="flex items-center gap-8">
