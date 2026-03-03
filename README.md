@@ -15,6 +15,7 @@
 
 
 <h2 align="center"><a href="https://fenrir-security-frontend-design-cha-teal.vercel.app/"><strong>Want to see live preview »</strong></a></h2>
+https://fenrir-security-frontend-design-cha-teal.vercel.app/
 
 <h3>Credentials To sign in</h3>
 We can use any credentials. And it would work. For both Signup and Login. 
