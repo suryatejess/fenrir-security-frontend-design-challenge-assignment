@@ -1,18 +1,28 @@
 import React from 'react'
 
-const ScanRow = ({ scan }) => {
+const ScanRow = ({ scan, isDarkMode = false }) => {
   const getStatusStyles = (status) => {
     switch (status.toLowerCase()) {
       case 'completed':
-        return 'bg-green-100 text-green-700 border-green-200'
+        return isDarkMode 
+          ? 'bg-green-900/50 text-green-400 border-green-700' 
+          : 'bg-green-100 text-green-700 border-green-200'
       case 'scheduled':
-        return 'bg-gray-100 text-gray-600 border-gray-200'
+        return isDarkMode 
+          ? 'bg-gray-700 text-gray-300 border-gray-600' 
+          : 'bg-gray-100 text-gray-600 border-gray-200'
       case 'failed':
-        return 'bg-red-100 text-red-600 border-red-200'
+        return isDarkMode 
+          ? 'bg-red-900/50 text-red-400 border-red-700' 
+          : 'bg-red-100 text-red-600 border-red-200'
       case 'in progress':
-        return 'bg-blue-100 text-blue-600 border-blue-200'
+        return isDarkMode 
+          ? 'bg-blue-900/50 text-blue-400 border-blue-700' 
+          : 'bg-blue-100 text-blue-600 border-blue-200'
       default:
-        return 'bg-gray-100 text-gray-600 border-gray-200'
+        return isDarkMode 
+          ? 'bg-gray-700 text-gray-300 border-gray-600' 
+          : 'bg-gray-100 text-gray-600 border-gray-200'
     }
   }
 
@@ -37,15 +47,19 @@ const ScanRow = ({ scan }) => {
   }
 
   return (
-    <tr className="border-b border-gray-100 hover:bg-gray-50 transition-colors duration-150">
+    <tr className={`border-b transition-colors duration-150 ${
+      isDarkMode 
+        ? 'border-gray-800 hover:bg-gray-800/50' 
+        : 'border-gray-100 hover:bg-gray-50'
+    }`}>
       {/* Scan Name */}
       <td className="py-4 px-4">
-        <span className="font-medium text-gray-900">{scan.name}</span>
+        <span className={`font-medium ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{scan.name}</span>
       </td>
 
       {/* Type */}
       <td className="py-4 px-4">
-        <span className="text-gray-600">{scan.type}</span>
+        <span className={isDarkMode ? 'text-gray-300' : 'text-gray-600'}>{scan.type}</span>
       </td>
 
       {/* Status */}
@@ -58,13 +72,13 @@ const ScanRow = ({ scan }) => {
       {/* Progress */}
       <td className="py-4 px-4">
         <div className="flex items-center gap-3">
-          <div className="w-32 h-2 bg-gray-200 rounded-full overflow-hidden">
+          <div className={`w-32 h-2 rounded-full overflow-hidden ${isDarkMode ? 'bg-gray-700' : 'bg-gray-200'}`}>
             <div 
               className={`h-full rounded-full ${getProgressBarColor(scan.status)}`}
               style={{ width: `${scan.progress}%` }}
             />
           </div>
-          <span className="text-sm text-gray-600">{scan.progress}%</span>
+          <span className={`text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>{scan.progress}%</span>
         </div>
       </td>
 
@@ -96,7 +110,7 @@ const ScanRow = ({ scan }) => {
 
       {/* Last Scan */}
       <td className="py-4 px-4">
-        <span className="text-gray-500 text-sm">{scan.lastScan}</span>
+        <span className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>{scan.lastScan}</span>
       </td>
     </tr>
   )

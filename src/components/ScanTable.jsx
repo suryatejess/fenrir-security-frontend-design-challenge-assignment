@@ -105,7 +105,8 @@ const initialMockScans = [
 
 const ScanTable = ({ 
   initialScans = initialMockScans,
-  onColumnToggle = () => console.log('Column toggle clicked')
+  onColumnToggle = () => console.log('Column toggle clicked'),
+  isDarkMode = false
 }) => {
   const [scans, setScans] = useState(initialScans)
   const [searchQuery, setSearchQuery] = useState('')
@@ -166,14 +167,14 @@ const ScanTable = ({
   }
 
   return (
-    <div className="bg-white rounded-xl border border-gray-200">
+    <div className={`rounded-xl border ${isDarkMode ? 'bg-gray-900 border-gray-800' : 'bg-white border-gray-200'}`}>
       {/* Toolbar */}
-      <div className="p-4 border-b border-gray-200">
+      <div className={`p-4 border-b ${isDarkMode ? 'border-gray-800' : 'border-gray-200'}`}>
         <div className="flex items-center justify-between gap-4">
           {/* Search */}
           <div className="flex-1 relative">
             <svg 
-              className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" 
+              className={`absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 ${isDarkMode ? 'text-gray-500' : 'text-gray-400'}`}
               fill="none" 
               viewBox="0 0 24 24" 
               stroke="currentColor"
@@ -185,7 +186,11 @@ const ScanTable = ({
               placeholder="Search scans by name or type..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+              className={`w-full pl-10 pr-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent ${
+                isDarkMode 
+                  ? 'bg-gray-800 border-gray-700 text-white placeholder-gray-500' 
+                  : 'bg-white border border-gray-300 text-gray-900 placeholder-gray-400'
+              }`}
             />
           </div>
 
@@ -197,8 +202,12 @@ const ScanTable = ({
                 onClick={() => setShowFilterDropdown(!showFilterDropdown)}
                 className={`flex items-center gap-2 px-4 py-2.5 text-sm font-medium rounded-lg transition-colors duration-200 ${
                   activeFilterCount > 0
-                    ? 'text-teal-700 bg-teal-50 border border-teal-300'
-                    : 'text-gray-700 bg-white border border-gray-300 hover:bg-gray-50'
+                    ? isDarkMode 
+                      ? 'text-teal-400 bg-teal-900/30 border border-teal-700'
+                      : 'text-teal-700 bg-teal-50 border border-teal-300'
+                    : isDarkMode
+                      ? 'text-gray-300 bg-gray-800 border border-gray-700 hover:bg-gray-700'
+                      : 'text-gray-700 bg-white border border-gray-300 hover:bg-gray-50'
                 }`}
               >
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -219,14 +228,16 @@ const ScanTable = ({
                     className="fixed inset-0 z-10" 
                     onClick={() => setShowFilterDropdown(false)} 
                   />
-                  <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 z-20">
+                  <div className={`absolute right-0 mt-2 w-64 rounded-lg shadow-lg border z-20 ${
+                    isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'
+                  }`}>
                     <div className="p-4">
                       <div className="flex items-center justify-between mb-3">
-                        <span className="font-medium text-gray-900">Filters</span>
+                        <span className={`font-medium ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Filters</span>
                         {activeFilterCount > 0 && (
                           <button
                             onClick={clearFilters}
-                            className="text-sm text-teal-600 hover:text-teal-700"
+                            className="text-sm text-teal-500 hover:text-teal-400"
                           >
                             Clear all
                           </button>
@@ -235,7 +246,7 @@ const ScanTable = ({
 
                       {/* Status Filter */}
                       <div className="mb-4">
-                        <p className="text-xs font-medium text-gray-500 uppercase mb-2">Status</p>
+                        <p className={`text-xs font-medium uppercase mb-2 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>Status</p>
                         <div className="space-y-2">
                           {statusOptions.map(status => (
                             <label key={status} className="flex items-center gap-2 cursor-pointer">
@@ -245,7 +256,7 @@ const ScanTable = ({
                                 onChange={() => toggleFilter('status', status)}
                                 className="w-4 h-4 text-teal-600 border-gray-300 rounded focus:ring-teal-500"
                               />
-                              <span className="text-sm text-gray-700">{status}</span>
+                              <span className={`text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>{status}</span>
                             </label>
                           ))}
                         </div>
@@ -253,7 +264,7 @@ const ScanTable = ({
 
                       {/* Type Filter */}
                       <div>
-                        <p className="text-xs font-medium text-gray-500 uppercase mb-2">Type</p>
+                        <p className={`text-xs font-medium uppercase mb-2 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>Type</p>
                         <div className="space-y-2">
                           {typeOptions.map(type => (
                             <label key={type} className="flex items-center gap-2 cursor-pointer">
@@ -263,7 +274,7 @@ const ScanTable = ({
                                 onChange={() => toggleFilter('type', type)}
                                 className="w-4 h-4 text-teal-600 border-gray-300 rounded focus:ring-teal-500"
                               />
-                              <span className="text-sm text-gray-700">{type}</span>
+                              <span className={`text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>{type}</span>
                             </label>
                           ))}
                         </div>
@@ -276,7 +287,11 @@ const ScanTable = ({
 
             <button
               onClick={onColumnToggle}
-              className="flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200"
+              className={`flex items-center gap-2 px-4 py-2.5 text-sm font-medium rounded-lg transition-colors duration-200 ${
+                isDarkMode
+                  ? 'text-gray-300 bg-gray-800 border border-gray-700 hover:bg-gray-700'
+                  : 'text-gray-700 bg-white border border-gray-300 hover:bg-gray-50'
+              }`}
             >
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
@@ -304,12 +319,14 @@ const ScanTable = ({
             className="absolute inset-0 bg-black/50" 
             onClick={() => setShowNewScanModal(false)} 
           />
-          <div className="relative bg-white rounded-2xl shadow-xl w-full max-w-md mx-4 p-6">
+          <div className={`relative rounded-2xl shadow-xl w-full max-w-md mx-4 p-6 ${
+            isDarkMode ? 'bg-gray-800' : 'bg-white'
+          }`}>
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-semibold text-gray-900">New Scan</h2>
+              <h2 className={`text-xl font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>New Scan</h2>
               <button
                 onClick={() => setShowNewScanModal(false)}
-                className="text-gray-400 hover:text-gray-600"
+                className={isDarkMode ? 'text-gray-400 hover:text-gray-300' : 'text-gray-400 hover:text-gray-600'}
               >
                 <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -319,7 +336,7 @@ const ScanTable = ({
 
             <form onSubmit={handleCreateScan} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className={`block text-sm font-medium mb-1 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                   Scan Name *
                 </label>
                 <input
@@ -328,18 +345,26 @@ const ScanTable = ({
                   onChange={(e) => setNewScan(prev => ({ ...prev, name: e.target.value }))}
                   placeholder="e.g., Web App Servers"
                   required
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                  className={`w-full px-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent ${
+                    isDarkMode 
+                      ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' 
+                      : 'bg-white border border-gray-300 text-gray-900'
+                  }`}
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className={`block text-sm font-medium mb-1 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                   Scan Type *
                 </label>
                 <select
                   value={newScan.type}
                   onChange={(e) => setNewScan(prev => ({ ...prev, type: e.target.value }))}
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent bg-white"
+                  className={`w-full px-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent ${
+                    isDarkMode 
+                      ? 'bg-gray-700 border-gray-600 text-white' 
+                      : 'bg-white border border-gray-300 text-gray-900'
+                  }`}
                 >
                   <option value="Greybox">Greybox</option>
                   <option value="Blackbox">Blackbox</option>
@@ -347,7 +372,7 @@ const ScanTable = ({
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className={`block text-sm font-medium mb-1 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                   Target URL
                 </label>
                 <input
@@ -355,7 +380,11 @@ const ScanTable = ({
                   value={newScan.target}
                   onChange={(e) => setNewScan(prev => ({ ...prev, target: e.target.value }))}
                   placeholder="https://example.com"
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                  className={`w-full px-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent ${
+                    isDarkMode 
+                      ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' 
+                      : 'bg-white border border-gray-300 text-gray-900'
+                  }`}
                 />
               </div>
 
@@ -363,7 +392,11 @@ const ScanTable = ({
                 <button
                   type="button"
                   onClick={() => setShowNewScanModal(false)}
-                  className="flex-1 px-4 py-2.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200"
+                  className={`flex-1 px-4 py-2.5 text-sm font-medium rounded-lg transition-colors duration-200 ${
+                    isDarkMode 
+                      ? 'text-gray-300 bg-gray-700 border border-gray-600 hover:bg-gray-600' 
+                      : 'text-gray-700 bg-white border border-gray-300 hover:bg-gray-50'
+                  }`}
                 >
                   Cancel
                 </button>
@@ -383,36 +416,36 @@ const ScanTable = ({
       <div className="overflow-x-auto">
         <table className="w-full">
           <thead>
-            <tr className="border-b border-gray-200 bg-gray-50">
-              <th className="text-left py-3 px-4 text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <tr className={`border-b ${isDarkMode ? 'border-gray-800 bg-gray-800/50' : 'border-gray-200 bg-gray-50'}`}>
+              <th className={`text-left py-3 px-4 text-xs font-medium uppercase tracking-wider ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
                 Scan Name
               </th>
-              <th className="text-left py-3 px-4 text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className={`text-left py-3 px-4 text-xs font-medium uppercase tracking-wider ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
                 Type
               </th>
-              <th className="text-left py-3 px-4 text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className={`text-left py-3 px-4 text-xs font-medium uppercase tracking-wider ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
                 Status
               </th>
-              <th className="text-left py-3 px-4 text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className={`text-left py-3 px-4 text-xs font-medium uppercase tracking-wider ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
                 Progress
               </th>
-              <th className="text-left py-3 px-4 text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className={`text-left py-3 px-4 text-xs font-medium uppercase tracking-wider ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
                 Vulnerability
               </th>
-              <th className="text-left py-3 px-4 text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className={`text-left py-3 px-4 text-xs font-medium uppercase tracking-wider ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
                 Last Scan
               </th>
             </tr>
           </thead>
           <tbody>
             {filteredScans.map((scan) => (
-              <ScanRow key={scan.id} scan={scan} />
+              <ScanRow key={scan.id} scan={scan} isDarkMode={isDarkMode} />
             ))}
           </tbody>
         </table>
 
         {filteredScans.length === 0 && (
-          <div className="py-12 text-center text-gray-500">
+          <div className={`py-12 text-center ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
             No scans found matching your search.
           </div>
         )}

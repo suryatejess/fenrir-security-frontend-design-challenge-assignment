@@ -1,6 +1,6 @@
 import React from 'react'
 
-const FindingLogCard = ({ finding }) => {
+const FindingLogCard = ({ finding, isDarkMode = false }) => {
   const getSeverityStyles = (severity) => {
     switch (severity.toLowerCase()) {
       case 'critical':
@@ -17,7 +17,11 @@ const FindingLogCard = ({ finding }) => {
   }
 
   return (
-    <div className="bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md transition-shadow duration-200">
+    <div className={`rounded-xl border p-5 transition-shadow duration-200 ${
+      isDarkMode 
+        ? 'bg-gray-900 border-gray-700 hover:shadow-lg hover:shadow-black/20' 
+        : 'bg-white border-gray-200 hover:shadow-md'
+    }`}>
       {/* Header */}
       <div className="flex items-start justify-between mb-3">
         <span
@@ -25,11 +29,11 @@ const FindingLogCard = ({ finding }) => {
         >
           {finding.severity}
         </span>
-        <span className="text-sm text-gray-400 font-mono">{finding.timestamp}</span>
+        <span className={`text-sm font-mono ${isDarkMode ? 'text-gray-500' : 'text-gray-400'}`}>{finding.timestamp}</span>
       </div>
 
       {/* Title */}
-      <h3 className="text-lg font-semibold text-gray-900 mb-2">
+      <h3 className={`text-lg font-semibold mb-2 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
         {finding.title}
       </h3>
 
@@ -39,7 +43,7 @@ const FindingLogCard = ({ finding }) => {
       </p>
 
       {/* Description */}
-      <p className="text-sm text-gray-500 leading-relaxed">
+      <p className={`text-sm leading-relaxed ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
         {finding.description}
       </p>
     </div>

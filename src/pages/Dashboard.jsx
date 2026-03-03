@@ -1,12 +1,15 @@
 import React from 'react'
+import { useTheme } from '../context/ThemeContext'
 import Sidebar from '../components/Sidebar'
 import Navbar from '../components/Navbar'
 import OrgStatsbar from '../components/OrgStatsbar'
 import ScanTable from '../components/ScanTable'
 
 const Dashboard = () => {
+  const { isDarkMode } = useTheme()
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className={`min-h-screen ${isDarkMode ? 'bg-gray-950' : 'bg-gray-50'}`}>
       {/* Sidebar */}
       <Sidebar activePage="dashboard" />
 
@@ -19,15 +22,16 @@ const Dashboard = () => {
             { label: 'Private Assets', href: '#' },
             { label: 'New Scan', href: '#', isActive: true }
           ]}
+          isDarkMode={isDarkMode}
         />
 
         {/* Page Content */}
         <main className="flex-1 p-6 space-y-6 overflow-auto">
           {/* Org Stats Bar */}
-          <OrgStatsbar />
+          <OrgStatsbar isDarkMode={isDarkMode} />
 
           {/* Scan Table */}
-          <ScanTable />
+          <ScanTable isDarkMode={isDarkMode} />
         </main>
       </div>
     </div>

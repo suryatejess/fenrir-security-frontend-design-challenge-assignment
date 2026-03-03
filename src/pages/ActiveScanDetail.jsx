@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTheme } from '../context/ThemeContext'
 import Sidebar from '../components/Sidebar'
 import Navbar from '../components/Navbar'
 import CircularProgress from '../components/CircularProgress'
@@ -8,8 +9,10 @@ import LiveScanConsole from '../components/LiveScanConsole'
 import BottomStatusbar from '../components/BottomStatusbar'
 
 const ActiveScanDetail = () => {
+  const { isDarkMode } = useTheme()
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className={`min-h-screen ${isDarkMode ? 'bg-gray-950' : 'bg-gray-50'}`}>
       {/* Sidebar */}
       <Sidebar activePage="scans" />
 
@@ -22,37 +25,38 @@ const ActiveScanDetail = () => {
             { label: 'Private Assets', href: '#' },
             { label: 'New Scan', href: '#', isActive: true }
           ]}
+          isDarkMode={isDarkMode}
         />
 
         {/* Page Content */}
         <main className="flex-1 p-6 space-y-6 overflow-auto pb-20">
           {/* Top Section - Progress and Step Tracker */}
-          <div className="bg-white rounded-xl border border-gray-200 p-6">
+          <div className={`rounded-xl border p-6 ${isDarkMode ? 'bg-gray-900 border-gray-800' : 'bg-white border-gray-200'}`}>
             <div className="flex items-center gap-8">
               {/* Circular Progress */}
               <div className="flex-shrink-0">
-                <CircularProgress percentage={0} status="In Progress" size={120} />
+                <CircularProgress percentage={0} status="In Progress" size={120} isDarkMode={isDarkMode} />
               </div>
 
               {/* Step Tracker */}
               <div className="flex-1">
-                <StepTracker currentStep={0} />
+                <StepTracker currentStep={0} isDarkMode={isDarkMode} />
               </div>
             </div>
           </div>
 
           {/* Metadata Row */}
-          <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-            <MetadataRow />
+          <div className={`rounded-xl border overflow-hidden ${isDarkMode ? 'bg-gray-900 border-gray-800' : 'bg-white border-gray-200'}`}>
+            <MetadataRow isDarkMode={isDarkMode} />
           </div>
 
           {/* Live Scan Console */}
-          <LiveScanConsole isRunning={true} />
+          <LiveScanConsole isRunning={true} isDarkMode={isDarkMode} />
         </main>
 
         {/* Bottom Status Bar */}
         <div className="fixed bottom-0 left-0 right-0 lg:left-64 z-30">
-          <BottomStatusbar />
+          <BottomStatusbar isDarkMode={isDarkMode} />
         </div>
       </div>
     </div>

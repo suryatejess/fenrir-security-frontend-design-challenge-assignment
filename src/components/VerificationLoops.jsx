@@ -1,9 +1,9 @@
 import React from 'react'
 
-const VerificationLoops = () => {
+const VerificationLoops = ({ isDarkMode = false }) => {
   return (
-    <div className="h-full flex items-center justify-center p-4">
-      <p className="text-gray-400 font-mono text-sm">
+    <div className={`h-full flex items-center justify-center p-4 ${isDarkMode ? 'bg-gray-900' : 'bg-white'}`}>
+      <p className={`font-mono text-sm ${isDarkMode ? 'text-gray-500' : 'text-gray-400'}`}>
         this is verification loops component text
       </p>
     </div>

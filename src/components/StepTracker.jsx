@@ -1,6 +1,6 @@
 import React from 'react'
 
-const StepTracker = ({ currentStep = 0 }) => {
+const StepTracker = ({ currentStep = 0, isDarkMode = false }) => {
   const steps = [
     {
       id: 'spidering',
@@ -62,8 +62,12 @@ const StepTracker = ({ currentStep = 0 }) => {
                   index === currentStep
                     ? 'bg-teal-500 text-white shadow-lg shadow-teal-500/30'
                     : index < currentStep
-                    ? 'bg-teal-100 text-teal-600 border-2 border-teal-500'
-                    : 'bg-white text-gray-400 border-2 border-gray-200'
+                    ? isDarkMode 
+                      ? 'bg-teal-900/50 text-teal-400 border-2 border-teal-500' 
+                      : 'bg-teal-100 text-teal-600 border-2 border-teal-500'
+                    : isDarkMode
+                      ? 'bg-gray-800 text-gray-500 border-2 border-gray-700'
+                      : 'bg-white text-gray-400 border-2 border-gray-200'
                 }`}
               >
                 {index < currentStep ? (
@@ -79,10 +83,10 @@ const StepTracker = ({ currentStep = 0 }) => {
               <span
                 className={`mt-2 text-sm font-medium transition-colors duration-300 ${
                   index === currentStep
-                    ? 'text-teal-600'
+                    ? 'text-teal-500'
                     : index < currentStep
-                    ? 'text-teal-600'
-                    : 'text-gray-400'
+                    ? 'text-teal-500'
+                    : isDarkMode ? 'text-gray-500' : 'text-gray-400'
                 }`}
               >
                 {step.label}
@@ -94,7 +98,7 @@ const StepTracker = ({ currentStep = 0 }) => {
               <div className="flex-1 mx-4 mb-6">
                 <div
                   className={`h-0.5 w-full transition-colors duration-300 ${
-                    index < currentStep ? 'bg-teal-500' : 'bg-gray-200'
+                    index < currentStep ? 'bg-teal-500' : isDarkMode ? 'bg-gray-700' : 'bg-gray-200'
                   }`}
                 />
               </div>

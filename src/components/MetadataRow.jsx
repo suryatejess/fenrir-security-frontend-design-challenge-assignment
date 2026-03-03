@@ -6,7 +6,8 @@ const MetadataRow = ({
   startedAt = 'Nov 22, 09:00AM',
   credentials = '2 Active',
   files = 'Control.pdf',
-  checklists = { completed: 40, total: 350 }
+  checklists = { completed: 40, total: 350 },
+  isDarkMode = false
 }) => {
   const metadata = [
     {
@@ -37,15 +38,15 @@ const MetadataRow = ({
   ]
 
   return (
-    <div className="flex items-center justify-between py-4 px-6 bg-white">
+    <div className={`flex items-center justify-between py-4 px-6 ${isDarkMode ? 'bg-gray-900' : 'bg-white'}`}>
       {metadata.map((item, index) => (
         <div key={index} className="flex flex-col">
-          <span className="text-xs text-gray-400 uppercase tracking-wider mb-1">
+          <span className={`text-xs uppercase tracking-wider mb-1 ${isDarkMode ? 'text-gray-500' : 'text-gray-400'}`}>
             {item.label}
           </span>
           <span
             className={`text-sm font-medium ${
-              item.highlight ? 'text-teal-500' : 'text-gray-900'
+              item.highlight ? 'text-teal-500' : isDarkMode ? 'text-white' : 'text-gray-900'
             }`}
           >
             {item.value}

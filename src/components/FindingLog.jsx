@@ -30,25 +30,26 @@ const mockFindings = [
 
 const FindingLog = ({ 
   findings = mockFindings,
-  title = 'Finding Log'
+  title = 'Finding Log',
+  isDarkMode = false
 }) => {
   return (
-    <div className="bg-gray-50 rounded-xl p-6">
+    <div className={`rounded-xl p-6 ${isDarkMode ? 'bg-gray-800' : 'bg-gray-50'}`}>
       {/* Header */}
-      <h2 className="text-lg font-semibold text-gray-900 mb-4">
+      <h2 className={`text-lg font-semibold mb-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
         {title}
       </h2>
 
       {/* Findings List */}
       <div className="space-y-4">
         {findings.map((finding) => (
-          <FindingLogCard key={finding.id} finding={finding} />
+          <FindingLogCard key={finding.id} finding={finding} isDarkMode={isDarkMode} />
         ))}
       </div>
 
       {/* Empty State */}
       {findings.length === 0 && (
-        <div className="text-center py-8 text-gray-500">
+        <div className={`text-center py-8 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
           No findings recorded yet.
         </div>
       )}

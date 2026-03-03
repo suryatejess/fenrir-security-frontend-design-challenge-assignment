@@ -68,29 +68,33 @@ const mockLogs = [
   }
 ]
 
-const ActivityLog = ({ logs = mockLogs }) => {
+const ActivityLog = ({ logs = mockLogs, isDarkMode = false }) => {
   const getTextStyle = (type) => {
     switch (type) {
       case 'url':
-        return 'text-teal-600 hover:underline cursor-pointer'
+        return 'text-teal-500 hover:underline cursor-pointer'
       case 'code':
-        return 'bg-gray-200 px-1.5 py-0.5 rounded text-gray-800 font-mono text-sm'
+        return isDarkMode 
+          ? 'bg-gray-700 px-1.5 py-0.5 rounded text-gray-200 font-mono text-sm'
+          : 'bg-gray-200 px-1.5 py-0.5 rounded text-gray-800 font-mono text-sm'
       case 'header':
-        return 'bg-orange-100 text-orange-600 px-1.5 py-0.5 rounded font-mono'
+        return isDarkMode
+          ? 'bg-orange-900/50 text-orange-400 px-1.5 py-0.5 rounded font-mono'
+          : 'bg-orange-100 text-orange-600 px-1.5 py-0.5 rounded font-mono'
       case 'highlight':
-        return 'text-teal-600'
+        return 'text-teal-500'
       case 'keyword':
         return 'text-red-500 font-semibold'
       default:
-        return 'text-gray-700'
+        return isDarkMode ? 'text-gray-300' : 'text-gray-700'
     }
   }
 
   return (
-    <div className="h-full overflow-y-auto p-4 font-mono text-sm leading-relaxed bg-white">
+    <div className={`h-full overflow-y-auto p-4 font-mono text-sm leading-relaxed ${isDarkMode ? 'bg-gray-900' : 'bg-white'}`}>
       {logs.map((log) => (
         <div key={log.id} className="mb-4">
-          <span className="text-gray-500">[{log.timestamp}]</span>{' '}
+          <span className={isDarkMode ? 'text-gray-500' : 'text-gray-500'}>[{log.timestamp}]</span>{' '}
           {log.content.map((segment, idx) => (
             <span key={idx} className={getTextStyle(segment.type)}>
               {segment.text}

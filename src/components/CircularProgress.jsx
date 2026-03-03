@@ -4,11 +4,15 @@ const CircularProgress = ({
   percentage = 0, 
   status = 'In Progress',
   size = 160,
-  strokeWidth = 8
+  strokeWidth = 8,
+  isDarkMode = false
 }) => {
   const radius = (size - strokeWidth) / 2
   const circumference = radius * 2 * Math.PI
   const offset = circumference - (percentage / 100) * circumference
+
+  const bgFill = isDarkMode ? '#1a2332' : '#1a2332'
+  const bgStroke = isDarkMode ? '#2a3444' : '#2a3444'
 
   return (
     <div className="relative inline-flex items-center justify-center">
@@ -22,8 +26,8 @@ const CircularProgress = ({
           cx={size / 2}
           cy={size / 2}
           r={radius}
-          fill="#1a2332"
-          stroke="#2a3444"
+          fill={bgFill}
+          stroke={bgStroke}
           strokeWidth={strokeWidth}
         />
         
