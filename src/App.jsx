@@ -1,15 +1,18 @@
 import './App.css'
+import { Routes, Route } from 'react-router-dom'
 import { ThemeProvider } from './context/ThemeContext'
+import Home from './pages/Home'
 import Dashboard from './pages/Dashboard'
 import ActiveScanDetail from './pages/ActiveScanDetail'
-import Home from './pages/Home'
 
 function App() {
   return (
     <ThemeProvider>
-      <ActiveScanDetail />
-      {/* <Dashboard /> */}
-      {/* <Home /> */}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/active-scan" element={<ActiveScanDetail />} />
+      </Routes>
     </ThemeProvider>
   )
 }

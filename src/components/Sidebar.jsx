@@ -1,7 +1,11 @@
 import React, { useState } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { useTheme } from '../context/ThemeContext'
 
-const Sidebar = ({ activePage = 'dashboard' }) => {
+const Sidebar = ({ activePage }) => {
+  const navigate = useNavigate()
+  const location = useLocation()
+  const derivedActivePage = activePage ?? (location.pathname === '/active-scan' ? 'scans' : location.pathname === '/dashboard' ? 'dashboard' : 'dashboard')
   const [isOpen, setIsOpen] = useState(false)
   const { isDarkMode, toggleTheme } = useTheme()
 
@@ -81,27 +85,44 @@ const Sidebar = ({ activePage = 'dashboard' }) => {
     },
   ]
 
-  const NavItem = ({ item, isActive }) => (
-    <button
-      className={`w-full flex items-center gap-3 px-4 py-3 rounded-full text-left transition-colors duration-200 ${
-        isActive
-          ? isDarkMode 
-            ? 'bg-teal-900/50 text-teal-400'
-            : 'bg-teal-50 text-teal-600'
-          : isDarkMode
-            ? 'text-gray-300 hover:bg-gray-800'
-            : 'text-gray-600 hover:bg-gray-50'
-      }`}
-    >
-      <span className={`relative ${isActive ? (isDarkMode ? 'text-teal-400' : 'text-teal-600') : (isDarkMode ? 'text-gray-400' : 'text-gray-500')}`}>
-        {item.icon}
-        {item.hasNotification && (
-          <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full" />
-        )}
-      </span>
-      <span className="font-medium">{item.label}</span>
-    </button>
-  )
+  const getNavPath = (id) => {
+    if (id === 'dashboard') return '/dashboard'
+    if (id === 'scans') return '/active-scan'
+    return '#'
+  }
+
+  const NavItem = ({ item, isActive }) => {
+    const path = getNavPath(item.id)
+    const handleClick = () => {
+      if (path !== '#') {
+        navigate(path)
+        setIsOpen(false)
+      }
+    }
+
+    return (
+      <button
+        onClick={handleClick}
+        className={`w-full flex items-center gap-3 px-4 py-3 rounded-full text-left transition-colors duration-200 ${
+          isActive
+            ? isDarkMode 
+              ? 'bg-teal-900/50 text-teal-400'
+              : 'bg-teal-50 text-teal-600'
+            : isDarkMode
+              ? 'text-gray-300 hover:bg-gray-800'
+              : 'text-gray-600 hover:bg-gray-50'
+        }`}
+      >
+        <span className={`relative ${isActive ? (isDarkMode ? 'text-teal-400' : 'text-teal-600') : (isDarkMode ? 'text-gray-400' : 'text-gray-500')}`}>
+          {item.icon}
+          {item.hasNotification && (
+            <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full" />
+          )}
+        </span>
+        <span className="font-medium">{item.label}</span>
+      </button>
+    )
+  }
 
   return (
     <>
@@ -151,7 +172,7 @@ const Sidebar = ({ activePage = 'dashboard' }) => {
         <nav className="flex-1 px-4">
           <div className="space-y-1">
             {mainNavItems.map((item) => (
-              <NavItem key={item.id} item={item} isActive={activePage === item.id} />
+              <NavItem key={item.id} item={item} isActive={derivedActivePage === item.id} />
             ))}
           </div>
 
@@ -161,7 +182,7 @@ const Sidebar = ({ activePage = 'dashboard' }) => {
           {/* Secondary navigation */}
           <div className="space-y-1">
             {secondaryNavItems.map((item) => (
-              <NavItem key={item.id} item={item} isActive={activePage === item.id} />
+              <NavItem key={item.id} item={item} isActive={derivedActivePage === item.id} />
             ))}
           </div>
         </nav>

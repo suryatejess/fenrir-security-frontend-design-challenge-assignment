@@ -14,7 +14,7 @@ const ActiveScanDetail = () => {
   return (
     <div className={`min-h-screen ${isDarkMode ? 'bg-gray-950' : 'bg-gray-50'}`}>
       {/* Sidebar */}
-      <Sidebar activePage="scans" />
+      <Sidebar />
 
       {/* Main Content */}
       <div className="lg:ml-64 flex flex-col min-h-screen">
