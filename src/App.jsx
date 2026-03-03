@@ -8,10 +8,12 @@ import Home from './pages/Home'
 import StepTracker from './components/StepTracker'
 import MetadataRow from './components/MetadataRow'
 import FindingLog from './components/FindingLog'
+import LiveScanConsole from './components/LiveScanConsole'
+import BottomStatusbar from './components/BottomStatusbar'
 
 function App() {
   return <>
-    <FindingLog />
+    <BottomStatusbar />
   </>
 }
 
