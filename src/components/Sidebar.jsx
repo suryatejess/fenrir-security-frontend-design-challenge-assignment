@@ -143,7 +143,7 @@ const Sidebar = ({ activePage = 'dashboard' }) => {
             <div className="w-8 h-8 bg-teal-500 rounded-full flex items-center justify-center">
               <div className="w-3 h-3 bg-white rounded-full" />
             </div>
-            <span className={`text-xl font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>aps</span>
+            <span className="text-xl font-semibold text-teal-500">aps</span>
           </div>
         </div>
 
