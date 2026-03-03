@@ -38,8 +38,7 @@ const SignupLoginForm = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
-      <div className="bg-white rounded-3xl shadow-xl p-8 w-full max-w-md">
+    <div className="bg-white rounded-3xl shadow-xl p-8 w-full max-w-md">
         <h1 className="text-3xl font-bold text-center text-gray-900 mb-2">
           {isLogin ? 'Log in' : 'Sign up'}
         </h1>
@@ -199,7 +198,6 @@ const SignupLoginForm = () => {
           </button>
         </div>
       </div>
-    </div>
   )
 }
 
