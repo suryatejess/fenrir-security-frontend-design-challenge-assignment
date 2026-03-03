@@ -30,24 +30,27 @@ const ActiveScanDetail = () => {
 
         {/* Page Content */}
         <main className="flex-1 p-6 space-y-6 overflow-auto pb-20">
-          {/* Top Section - Progress and Step Tracker */}
+          {/* Top Section - Progress, Step Tracker, and Metadata */}
           <div className={`rounded-xl border p-6 ${isDarkMode ? 'bg-gray-900 border-gray-800' : 'bg-white border-gray-200'}`}>
-            <div className="flex items-center gap-8">
-              {/* Circular Progress */}
-              <div className="flex-shrink-0">
+            <div className="flex gap-8">
+              {/* Circular Progress - spans both rows */}
+              <div className="flex-shrink-0 flex items-center">
                 <CircularProgress percentage={0} status="In Progress" size={120} isDarkMode={isDarkMode} />
               </div>
 
-              {/* Step Tracker */}
-              <div className="flex-1">
-                <StepTracker currentStep={0} isDarkMode={isDarkMode} />
+              {/* Right side - Step Tracker on top, Metadata below */}
+              <div className="flex-1 flex flex-col">
+                {/* Step Tracker */}
+                <div className="flex-1">
+                  <StepTracker currentStep={0} isDarkMode={isDarkMode} />
+                </div>
+
+                {/* Metadata Row - below step tracker */}
+                <div className={`pt-6 mt-4 border-t ${isDarkMode ? 'border-gray-800' : 'border-gray-200'}`}>
+                  <MetadataRow isDarkMode={isDarkMode} />
+                </div>
               </div>
             </div>
-          </div>
-
-          {/* Metadata Row */}
-          <div className={`rounded-xl border overflow-hidden ${isDarkMode ? 'bg-gray-900 border-gray-800' : 'bg-white border-gray-200'}`}>
-            <MetadataRow isDarkMode={isDarkMode} />
           </div>
 
           {/* Live Scan Console */}

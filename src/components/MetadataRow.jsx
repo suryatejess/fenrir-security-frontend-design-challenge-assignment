@@ -38,7 +38,7 @@ const MetadataRow = ({
   ]
 
   return (
-    <div className={`flex items-center justify-between py-4 px-6 ${isDarkMode ? 'bg-gray-900' : 'bg-white'}`}>
+    <div className="flex items-center justify-between">
       {metadata.map((item, index) => (
         <div key={index} className="flex flex-col">
           <span className={`text-xs uppercase tracking-wider mb-1 ${isDarkMode ? 'text-gray-500' : 'text-gray-400'}`}>
