@@ -8,7 +8,7 @@ function App() {
 
   return (
     <>
-      
+      <h1 className='text-3xl font-bold underline'>im just a girl who wants to be a good girl</h1>
     </>
   )
 }
