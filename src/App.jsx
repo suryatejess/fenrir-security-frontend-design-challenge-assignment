@@ -7,10 +7,11 @@ import Sidebar from './components/Sidebar'
 import Home from './pages/Home'
 import StepTracker from './components/StepTracker'
 import MetadataRow from './components/MetadataRow'
+import FindingLog from './components/FindingLog'
 
 function App() {
   return <>
-    <MetadataRow />
+    <FindingLog />
   </>
 }
 
