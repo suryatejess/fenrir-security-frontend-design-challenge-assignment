@@ -1,5 +1,6 @@
 import React from 'react'
 import { useTheme } from '../context/ThemeContext'
+import { useToast } from '../context/ToastContext'
 import Sidebar from '../components/Sidebar'
 import Navbar from '../components/Navbar'
 import OrgStatsbar from '../components/OrgStatsbar'
@@ -7,6 +8,7 @@ import ScanTable from '../components/ScanTable'
 
 const Dashboard = () => {
   const { isDarkMode } = useTheme()
+  const { showToast } = useToast()
 
   return (
     <div className={`min-h-screen ${isDarkMode ? 'bg-gray-950' : 'bg-gray-50'}`}>
@@ -23,6 +25,8 @@ const Dashboard = () => {
             { label: 'New Scan', href: '#', isActive: true }
           ]}
           isDarkMode={isDarkMode}
+          onExportReport={() => showToast('Export started. Report will be ready shortly.', 'info')}
+          onStopScan={() => showToast('Scan stopped successfully.', 'success')}
         />
 
         {/* Page Content */}

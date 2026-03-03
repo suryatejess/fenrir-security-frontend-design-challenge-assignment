@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import ScanRow from './ScanRow'
+import { useToast } from '../context/ToastContext'
 
 const initialMockScans = [
   {
@@ -108,6 +109,7 @@ const ScanTable = ({
   onColumnToggle = () => console.log('Column toggle clicked'),
   isDarkMode = false
 }) => {
+  const { showToast } = useToast()
   const [scans, setScans] = useState(initialScans)
   const [searchQuery, setSearchQuery] = useState('')
   const [showFilterDropdown, setShowFilterDropdown] = useState(false)
@@ -164,6 +166,7 @@ const ScanTable = ({
     setScans(prev => [newScanData, ...prev])
     setNewScan({ name: '', type: 'Greybox', target: '' })
     setShowNewScanModal(false)
+    showToast(`Scan "${newScan.name}" created successfully`, 'success')
   }
 
   return (

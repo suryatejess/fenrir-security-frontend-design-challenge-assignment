@@ -1,5 +1,6 @@
 import React from 'react'
 import { useTheme } from '../context/ThemeContext'
+import { useToast } from '../context/ToastContext'
 import Sidebar from '../components/Sidebar'
 import Navbar from '../components/Navbar'
 import CircularProgress from '../components/CircularProgress'
@@ -10,6 +11,7 @@ import BottomStatusbar from '../components/BottomStatusbar'
 
 const ActiveScanDetail = () => {
   const { isDarkMode } = useTheme()
+  const { showToast } = useToast()
 
   return (
     <div className={`min-h-screen ${isDarkMode ? 'bg-gray-950' : 'bg-gray-50'}`}>
@@ -26,6 +28,8 @@ const ActiveScanDetail = () => {
             { label: 'New Scan', href: '#', isActive: true }
           ]}
           isDarkMode={isDarkMode}
+          onExportReport={() => showToast('Export started. Report will be ready shortly.', 'info')}
+          onStopScan={() => showToast('Scan stopped successfully.', 'success')}
         />
 
         {/* Page Content */}
